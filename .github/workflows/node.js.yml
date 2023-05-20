@@ -33,3 +33,8 @@ jobs:
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: ${{ secrets.WORK_DIR }}
           EXCLUDE: "/dist/, /node_modules/"
+          SCRIPT_AFTER: |
+            npm install
+            npm run build
+            pm2 restart api-finance
+            echo $RSYNC_STDOUT
