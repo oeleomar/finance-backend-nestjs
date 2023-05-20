@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkou do repositorio
-        uses: actions/checkout@1
+        uses: actions/checkout@v1
       - name: Deploy for hosting
         uses: easingthemes/ssh-deploy@main
         env:
@@ -19,4 +19,3 @@ jobs:
           SOURCE: 'dist/'
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          TARGET: ${{ secrets.REMOTE_TARGET }}
