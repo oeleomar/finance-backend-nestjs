@@ -26,7 +26,7 @@ export class User {
   @Column()
   phone: string;
 
-  @Column({ name: 'login_attempt', type: 'number' })
+  @Column({ name: 'login_attempt', type: 'int' })
   loginAttempts: number;
 
   @Column({ name: 'last_login_attempt', type: 'date' })
