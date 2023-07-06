@@ -22,20 +22,21 @@ export class User {
   @Column({ unique: true })
   cpf: string;
 
-  @Column()
-  @BeforeInsert()
+  @Column({ select: false })
   password: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   phone: string;
 
-  @Column({ name: 'login_attempt', type: 'int' })
+  @Column({ name: 'login_attempt', type: 'int', default: 0 })
   loginAttempts: number;
 
-  @Column({ name: 'last_login_attempt', type: 'date' })
+  @Column({ name: 'last_login_attempt', type: 'date', nullable: true })
   lastLoginAttempt: Date;
 
-  @Column({ name: 'is_locked', type: 'boolean' })
+  @Column({ name: 'is_locked', type: 'boolean', default: false })
   isLocked: boolean;
 
   @CreateDateColumn({ name: 'created_at' })

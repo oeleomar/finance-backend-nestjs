@@ -1,4 +1,5 @@
-import { Equals, IsEmail, IsNotEmpty, IsStrongPassword } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsStrongPassword } from 'class-validator';
+import { Match } from 'src/decorators/match.decorator';
 
 export class CreateUserDto {
   @IsNotEmpty({ message: 'Nome não pode ser vazio' })
@@ -25,7 +26,7 @@ export class CreateUserDto {
   password: string;
 
   @IsNotEmpty({ message: 'Confirma senha não pode ser vazio' })
-  @Equals('password', { message: 'Senhas são diferentes' })
+  @Match('password', { message: 'Senhas são diferentes' })
   confirmPassword: string;
 
   phone: string;
