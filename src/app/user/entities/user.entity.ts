@@ -1,4 +1,6 @@
+import { cryptPassword } from 'src/utils/bcript';
 import {
+  BeforeInsert,
   Column,
   CreateDateColumn,
   Entity,
@@ -14,13 +16,14 @@ export class User {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
-  @Column()
+  @Column({ unique: true })
   cpf: string;
 
   @Column()
+  @BeforeInsert()
   password: string;
 
   @Column()
@@ -40,4 +43,9 @@ export class User {
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
+
+  @BeforeInsert()
+  cryptPassword() {
+    this.password = cryptPassword(this.password);
+  }
 }

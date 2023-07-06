@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserModule } from './app/user/user.module';
-import { User } from './app/user/entities/user.entity';
 
 @Module({
   imports: [
@@ -11,7 +10,7 @@ import { User } from './app/user/entities/user.entity';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        host: configService.get('DB_HOST', 'bd'),
+        host: configService.get('DB_HOST'),
         port: configService.get('DB_PORT', 5432),
         username: configService.get('DB_USER', 'postgres'),
         password: configService.get('DB_PASSWORD', '123456789'),
