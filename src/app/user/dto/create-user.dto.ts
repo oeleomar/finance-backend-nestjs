@@ -1,18 +1,29 @@
-import { IsEmail, IsNotEmpty, IsStrongPassword } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsString,
+  IsStrongPassword,
+  IsOptional,
+} from 'class-validator';
 import { Match } from 'src/decorators/match.decorator';
+import { Message } from 'src/utils/Message';
 
 export class CreateUserDto {
-  @IsNotEmpty({ message: 'Nome não pode ser vazio' })
+  @IsString()
+  @IsNotEmpty({ message: Message.notEmpty('Nome') })
   name: string;
 
-  @IsNotEmpty({ message: 'Email não pode ser vazio' })
-  @IsEmail({}, { message: 'Não é um email válido' })
+  @IsString()
+  @IsNotEmpty({ message: Message.notEmpty('Email') })
+  @IsEmail({}, { message: Message.notValid('Email') })
   email: string;
 
-  @IsNotEmpty({ message: 'CPF não pode ser vazio' })
+  @IsString()
+  @IsNotEmpty({ message: Message.notEmpty('CPF') })
   cpf: string;
 
-  @IsNotEmpty({ message: 'Senha não pode ser vazio' })
+  @IsString()
+  @IsNotEmpty({ message: Message.notEmpty('Senha') })
   @IsStrongPassword(
     {
       minLength: 8,
@@ -21,13 +32,16 @@ export class CreateUserDto {
       minSymbols: 1,
       minUppercase: 1,
     },
-    { message: 'Senha não é forte o suficiente' },
+    { message: Message.notStrong('Senha') },
   )
   password: string;
 
-  @IsNotEmpty({ message: 'Confirma senha não pode ser vazio' })
-  @Match('password', { message: 'Senhas são diferentes' })
+  @IsString()
+  @IsNotEmpty({ message: Message.notEmpty('Confirma senha') })
+  @Match('password', { message: Message.notMatch('Senhas') })
   confirmPassword: string;
 
+  @IsString()
+  @IsOptional()
   phone: string;
 }

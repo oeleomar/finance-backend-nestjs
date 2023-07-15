@@ -23,7 +23,6 @@ export class UserController {
   @Get()
   findAll() {
     const result = this.userService.findAll();
-    console.log(result);
     return result;
   }
 

@@ -2,6 +2,9 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserModule } from './app/user/user.module';
+import { AdminModule } from './app/admin/admin.module';
+import { APP_FILTER } from '@nestjs/core';
+import { TypeOrmExceptionFilter } from './filters/typeorm-exception.filter';
 
 @Module({
   imports: [
@@ -19,9 +22,14 @@ import { UserModule } from './app/user/user.module';
         autoLoadEntities: true,
       }),
     }),
-    UserModule,
+    AdminModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: TypeOrmExceptionFilter,
+    },
+  ],
 })
 export class AppModule {}
