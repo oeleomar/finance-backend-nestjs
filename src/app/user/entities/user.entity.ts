@@ -30,6 +30,14 @@ export class User extends BaseEntity {
   @Column({ name: 'is_locked', type: 'boolean', default: false })
   isLocked: boolean;
 
+  @Column({
+    name: 'is_authorized',
+    type: 'boolean',
+    default: false,
+    nullable: false,
+  })
+  isAuthorized: boolean;
+
   @BeforeInsert()
   cryptPassword() {
     this.password = cryptPassword(this.password);
